@@ -23,6 +23,8 @@ class SeqASTVisitor : public clang::RecursiveASTVisitor<SeqASTVisitor>
     ~SeqASTVisitor(){
     }
 
+    bool isInSystemHeader(const clang::SourceLocation &loc);
+    bool MatchPoint(point &p, clang::Stmt *stmt);
     bool VisitFunctionDecl(clang::FunctionDecl *func_decl);
 };
 class SeqASTConsumer : public clang::ASTConsumer
@@ -32,7 +34,6 @@ class SeqASTConsumer : public clang::ASTConsumer
                              SeqInfo &seq_i)
         :  _visitor(&CI.getASTContext(), seq_i)
     {
-        
     }
 
     virtual void HandleTranslationUnit(clang::ASTContext &ctx)
@@ -77,7 +78,9 @@ class SeqFrontendAction : public clang::ASTFrontendAction
 class SeqFactory : public clang::tooling::FrontendActionFactory
 {
   public:
-    SeqFactory(SeqInfo &seq_i) : seq_info{ seq_i } {}
+    SeqFactory(SeqInfo &seq_i) : seq_info{ seq_i } {
+        std::cout<<"Bug type is "<<seq_i.warningType<<"\n";
+    }
     std::unique_ptr<clang::FrontendAction> create() override
     {
         return std::make_unique<SeqFrontendAction>(seq_info);

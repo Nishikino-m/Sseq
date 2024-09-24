@@ -41,9 +41,10 @@ int main(int argc, const char **argv)
 
     std::cout << "[get semantic sequence]\n";
     std::string path_info_file = path_info_f;
-    if(path_info_file=="" ) path_info_file =  argv[3];//待修改
-
-    sseq::SeqInfo seq_info(path_info_file);
+    //./sseq compile_commands.json test_info_1.txt 
+    if(path_info_file=="" ) path_info_file =  argv[2];//待修改
+    std::string function_list_file =  argv[3];//函数
+    sseq::SeqInfo seq_info(path_info_file, function_list_file);
     std::unique_ptr<sseq::SeqFactory> sseq_factory =
         std::make_unique<sseq::SeqFactory>(seq_info);
 
