@@ -51,5 +51,12 @@ int main(int argc, const char **argv)
     tool.run(sseq_factory.get());
     
     std::cout << "[exit]\n";
+    for(auto &p:seq_info.path){
+        if(!p.node){
+            std::cout<<"NullPointer\n";
+            continue;
+        }
+        std::cout<<p.id<<" "<<p.node->getStmtClassName()<<"\n";
+    }
     return 0;
 }

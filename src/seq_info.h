@@ -64,11 +64,12 @@ struct point{
     std::string var_name;//变量名--若静态分析工具输出，则记录
     //变量类型 是否const 指针 引用 数组
     //后续需要输入机器学习算法的话，应该存储原始格式还是直接在此处进行转换
-
+    clang::Stmt *node;
     std::string value;//变量赋值时，等号右侧的内容/类型？
 
     point(int id, std::string fp,int line):id{id},filepath{fp},line{line}\
     {var_name = "";}
+    
 };
 
 class SeqInfo

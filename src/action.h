@@ -24,7 +24,9 @@ class SeqASTVisitor : public clang::RecursiveASTVisitor<SeqASTVisitor>
     }
 
     bool isInSystemHeader(const clang::SourceLocation &loc);
-    bool MatchPoint(point &p, clang::Stmt *stmt);
+    bool MatchPoint(point &p, clang::Stmt *stmt, std::string filePath);
+    clang::SourceRange get_sourcerange(clang::Stmt *stmt);
+    clang::SourceRange get_decl_sourcerange(clang::Decl *stmt);
     bool VisitFunctionDecl(clang::FunctionDecl *func_decl);
 };
 class SeqASTConsumer : public clang::ASTConsumer
